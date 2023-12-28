@@ -1,0 +1,15 @@
+*{
+    background-color: beige;
+    color:black; 
+}
+
+.container {
+     display: grid;
+    justify-items: center;
+  align-items: end;
+     height: 20vh; /* This will ensure that the container takes up the full height of the viewport */
+}
+
+section{
+    transform: translateY(100px);
+}

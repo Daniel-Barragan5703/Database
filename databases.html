@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Passwords</title>
+    <link rel="stylesheet" href="databases.css">
+</head>
+
+<html>
+
+<body>
+
+
+    <div style="width: 100%; height: 60px; margin-top: 240px;">
+        <h1 id="output" style="text-align: center;"> Write Down Passwords: </h1>
+        <input id="input" style="margin-left: 540px; width 12.5%;" />
+        <button onclick="save();"> Save Data </button>
+        <button onclick="view()"> Inspect Record </button>
+        <button onclick="remove()"> Delete Record </button>
+
+    </div>
+
+    <section>
+        <p> Why will this password be used for? </p>
+        <input type="radio" id="work" name="language" value="Work">
+        <label for="work">Work</label><br>
+        <input type="radio" id="home" name="language" value="Home">
+        <label for="home">Home</label><br>
+
+
+        <p> For who will these passwords be for? </p>
+        <label for="person"> </label>
+        <select id="type_person" name="Person?">
+            <option value="none">Choose person</option>
+            <option value="Myself">Myself</option>
+            <option value="Family Member">Family Member</option>
+            <option value="Friend">Friend</option>
+            <option value="Senior">Senior</option>
+        </select><br><br>
+
+
+        <label for="my_slider">How many passwords are you saving? </label><br>
+        <input id="my_slider" type="range" value="0" step="1" min="0" max="10" /><br>
+        <p id="text_age">Passwords saved up = 0</p>
+
+        <button id="btn_check"> Submit</button>
+
+    </section>
+    <div class="container">
+        <p>Press Inspect Button after Save or Delete to Update Your Records.</p>
+    </div>
+
+
+</body>
+<script>
+    function save() {
+        //get data from input box
+        var new_data = ' ' + document.getElementById('input').value;
+
+        //if nothing is saved at the beginning
+        if (localStorage.getItem('data') == null) {
+            localStorage.setItem('data', '[]');
+            alert("Record is empty");
+        }
+        //JSON.parse is a way the data is readable
+        const old_data = JSON.parse(localStorage.getItem('data'));
+        old_data.push(new_data);
+
+        localStorage.setItem('data', JSON.stringify(old_data));
+
+    }
+
+    function view() {
+        if (localStorage.getItem('data') != null) {
+            document.getElementById('output').innerHTML = JSON.parse(localStorage.getItem('data'));
+        }
+    }
+
+    function remove() {
+        if (localStorage.getItem('data') != null) {
+            localStorage.setItem('data', '[]');
+        }
+
+    }
+
+
+   let button_check = document.getElementById("btn_check");
+        button_check.addEventListener("click", checkAnswers);
+
+        let radio_HOME = document.getElementById("home");
+        let radio_WORK = document.getElementById("work");
+
+
+
+        function checkAnswers() {
+
+if (radio_HOME.checked == true) {
+  alert("This password is for home");
+}
+if (radio_WORK.checked == true) {
+  alert("This passwrod is for work");
+}
+
+
+if (select_type_person.value == "none")
+{
+alert("PLEASE SELECT AN OPTION");
+}
+if (select_type_person.value == "Myself")
+{
+alert("These passwords are for myself");
+}
+if (select_type_person.value == "Family Member")
+{
+alert("These passwords are for a family Member");
+}
+
+if (select_type_person.value == "Friend")
+{
+alert("These passwords are for a friend");
+}
+
+if (select_type_person.value == "Senior")
+{
+alert("These passwords are for a Senior");
+}
+
+alert(text_age.textContent);
+
+}
+
+let select_type_person = document.getElementById("type_person");
+
+let slider_age = document.getElementById("my_slider");
+let text_age = document.getElementById("text_age");
+
+slider_age.addEventListener("input",update_slider_text);
+
+function update_slider_text()
+{
+text_age.textContent = "Passwords saved up:  " + slider_age.value;
+
+}
+
+
+</script>
+
+</html>
